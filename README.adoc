@@ -1,0 +1,303 @@
+= Entity-Relationship Diagrams with PlantUML: A Guide
+Jassiel Ovando_F <jassielof@github.com>
+:description: This document is a guide to create Entity-Relationship Diagrams with PlantUML.
+:toc: auto
+
+[abstract]
+== Abstract
+This guide leverages the syntax conventions from the `ER Assistant v2.10` tool, developed by jukicn@acm.org, to create Entity-Relationship Diagrams (ERDs) using PlantUML. Adopting these conventions, can produce clear and consistent ERD that are easy to understand and maintain. The current guide provides detailed instructions, examples, and best practices for defining entities, relationships, cardinality, and attributes in/for PlantUML.
+
+== Syntax for PlantUML
+
+=== Entities
+
+Supertype and subtype entities::
+* If the entity is a supertype it will be denoted with the relationship line thickness of 2.
+** It can be a `-->` or a `--|>` depending on the type of supertype.
+** The parameter `skinparam groupInheritance 2` can be used to start join from 2 instead of the default.
+But once it's joined, the thickness will be ignored.
+* Supertype entities will be inside a rectangle indicating the family of for its subtypes (optional).
+* If the supertype entity has the property of being 'disjoint' (`D`) or 'complete' (`C`),
+it will be marked over the entity name as `DC` for both or just the single character for each (stereotypes).
+
+NOTE: The `skinparam groupInheritance 2` parameter doesn't work with `-->`.
+And if the `skinparam groupInheritance 2` parameter is used, the thickness attribute will be ignored.
+
+Weak entities::
+If the entity is a weak entity, it will be marked with a `#line.dashed` after the entity name, so it gets a dashed line border.
+
+Regular entities::
+If the entity is a regular entity, it won't have any special markings.
+
+Comments::
+https://plantuml.com/class-diagram#59c91a18bcc97bb0[Link to class diagram notes], notes will be used as the comments.
+
+.Example of entities
+[plantuml]
+----
+@startuml ERD
+left to right direction
+skinparam groupInheritance 2
+
+rectangle "Supertype family" as superfamily {
+  entity "Entity 1 (Supertype and Regular)" as entity1 <<DC>>
+  entity "Entity 5 (Subtype)" as entity5
+  entity "Entity 6 (Subtype)" as entity6
+  entity "Entity 2 (Supertype and Weak)" as entity2 #line.dashed
+  note bottom: Note for the entity 2.
+}
+note right of superfamily: Note for the supertype family.
+' note <direction of entity>: <text> '
+
+entity "Entity 3 (Not Supertype and Regular )" as entity3
+entity "Entity 4 (Not Supertype and Weak)" as entity4 #line.dashed
+
+entity1 <|-- entity5
+entity1 <|-- entity6
+
+@enduml
+----
+
+=== Attributes
+
+Primary key::
+The primary key will be separated from the rest.
+
+Allow null::
+If the attribute allows null values, it won't have any special markings.
+Otherwise it will have an asterisk `*` before the attribute name.
+
+Foreign key::
+If the attribute is a foreign key, it will be bolded.
+
+Comments::
+https://plantuml.com/class-diagram#c909b0b5f0434a64[Link to class diagram filed notes], these to be for the attributes.
+
+.Example of attributes
+[plantuml]
+----
+@startuml ERD
+' left to right direction
+
+entity "Person" as person {
+  int id
+  ==
+  * string name
+  date birthdate
+  * string email
+}
+note right of person::name
+  This is the name of the person
+end note
+
+entity "Address" as address {
+  int id
+  ==
+  * string street
+  * string city
+  * string state
+  * string country
+  * string postal_code
+  --
+  * **int person_id**
+}
+note left of address::person_id
+  This is the foreign key to the person -- address
+end note
+
+person -- address
+----
+
+=== Relationships & Cardinality
+
+https://plantuml.com/ie-diagram#a33822c778959028[Link to the extension of class diagrams] in PlantUML for the relationships cardinality.
+
+Regular::
+Denoted with dotted lines.
+
+Identifying::
+Denoted with regular lines.
+
+Relationship Attributes::
+Use an intermediate entity to represent the relationship with attributes.
+
+.Example of relationships cardinality
+[plantuml]
+----
+@startuml ERD
+
+left to right direction
+
+Customer }|..o{ Order : places
+Student }o..o{ Course : enrolls in
+Employee ||--|| "Employee Detail" : has details
+Department |o--o{ Employee : manages
+----
+
+.Example of relationships with attributes
+[plantuml]
+----
+@startuml ERD
+
+left to right direction
+
+' Entities
+entity Customer {
+    * customer_id: int
+    name: varchar
+}
+
+entity Product {
+    * product_id: int
+    name: varchar
+}
+
+' Intermediate entity representing the relationship with attributes
+entity Order {
+    * order_id: int
+    customer_id: int <<FK>>
+    product_id: int <<FK>>
+    --
+    order_date: date
+    quantity: int
+    total_price: decimal
+}
+
+' Relationships
+Customer ||..o{ Order : places
+Product ||..o{ Order : includes
+
+note left of Order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+@enduml
+----
+
+=== Diagram Notes
+
+For diagram notes, simply use floating notes as given https://plantuml.com/class-diagram#59c91a18bcc97bb0[here].
+
+.Example of diagram notes
+[plantuml]
+----
+@startuml
+class Object << general >>
+Object <|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+
+@enduml
+----
+
+=== Design Justification
+
+For design justifications, I really couldn't find a workaround but just to keep using notes or using adding them directly into the report.
+
+== Example
+
+.Example of an ERD with all the elements
+[plantuml]
+----
+@startuml ERD
+
+left to right direction
+skinparam groupInheritance 2
+
+' Supertype and Subtype Entities
+rectangle "Person Family" as personFamily {
+  entity "Person" as person <<D>> {
+    * person_id: int
+    ==
+    * name: varchar
+    birthdate: date
+    * email: varchar
+  }
+  entity "Customer" as customer {
+    * customer_id: int
+    ==
+    loyalty_points: int
+  }
+  entity "Employee" as employee {
+    * employee_id: int
+    ==
+    hire_date: date
+    * department_id: int <<FK>>
+  }
+}
+
+person <|-- customer
+person <|-- employee
+
+note right of personFamily
+  Supertype and subtype entities
+  with disjoint property
+end note
+
+' Weak and Regular Entities
+entity "Department" as department {
+  * department_id: int
+  ==
+  * name: varchar
+}
+
+entity "Project" as project #line.dashed {
+  * project_id: int
+  ==
+  * name: varchar
+  * department_id: int <<FK>>
+}
+
+department ||--o{ project : manages
+
+note right of project
+  Weak entity: Project
+  managed by Department
+end note
+
+' Relationship with Attributes
+entity "Product" as product {
+  * product_id: int
+  ==
+  * name: varchar
+  price: decimal
+}
+
+entity "Order" as order {
+  * order_id: int
+  customer_id: int <<FK>>
+  product_id: int <<FK>>
+  ==
+  order_date: date
+  quantity: int
+  total_price: decimal
+}
+
+customer ||..o{ order : places
+product ||..o{ order : includes
+
+note left of order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+' Additional Relationships
+employee ||--|| "Employee Detail" : has details
+department |o--o{ employee : employs
+
+' Diagram Notes
+note top of person : This is the supertype entity
+note right of customer : Customer inherits from Person
+note left of employee : Employee inherits from Person
+
+@enduml
+----
