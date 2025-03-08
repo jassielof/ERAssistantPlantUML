@@ -1,0 +1,92 @@
+@startuml ERD
+
+left to right direction
+skinparam groupInheritance 2
+
+' Supertype and Subtype Entities
+rectangle "Person Family" as personFamily {
+  entity "Person" as person <<D>> {
+    * person_id: int
+    ==
+    * name: varchar
+    birthdate: date
+    * email: varchar
+  }
+  entity "Customer" as customer {
+    * customer_id: int
+    ==
+    loyalty_points: int
+  }
+  entity "Employee" as employee {
+    * employee_id: int
+    ==
+    hire_date: date
+    * department_id: int <<FK>>
+  }
+}
+
+person <|-- customer
+person <|-- employee
+
+note right of personFamily
+  Supertype and subtype entities
+  with disjoint property
+end note
+
+' Weak and Regular Entities
+entity "Department" as department {
+  * department_id: int
+  ==
+  * name: varchar
+}
+
+entity "Project" as project #line.dashed {
+  * project_id: int
+  ==
+  * name: varchar
+  * department_id: int <<FK>>
+}
+
+department ||--o{ project : manages
+
+note right of project
+  Weak entity: Project
+  managed by Department
+end note
+
+' Relationship with Attributes
+entity "Product" as product {
+  * product_id: int
+  ==
+  * name: varchar
+  price: decimal
+}
+
+entity "Order" as order {
+  * order_id: int
+  customer_id: int <<FK>>
+  product_id: int <<FK>>
+  ==
+  order_date: date
+  quantity: int
+  total_price: decimal
+}
+
+customer ||..o{ order : places
+product ||..o{ order : includes
+
+note left of order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+' Additional Relationships
+employee ||--|| "Employee Detail" : has details
+department |o--o{ employee : employs
+
+' Diagram Notes
+note top of person : This is the supertype entity
+note right of customer : Customer inherits from Person
+note left of employee : Employee inherits from Person
+
+@enduml

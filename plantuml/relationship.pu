@@ -1,0 +1,49 @@
+@startuml ERD
+
+left to right direction
+
+Customer }|..o{ Order : places
+Student }o..o{ Course : enrolls in
+Employee ||--|| "Employee Detail" : has details
+Department |o--o{ Employee : manages
+----
+
+.Example of relationships with attributes
+[plantuml]
+----
+@startuml ERD
+
+left to right direction
+
+' Entities
+entity Customer {
+    * customer_id: int
+    name: varchar
+}
+
+entity Product {
+    * product_id: int
+    name: varchar
+}
+
+' Intermediate entity representing the relationship with attributes
+entity Order {
+    * order_id: int
+    customer_id: int <<FK>>
+    product_id: int <<FK>>
+    --
+    order_date: date
+    quantity: int
+    total_price: decimal
+}
+
+' Relationships
+Customer ||..o{ Order : places
+Product ||..o{ Order : includes
+
+note left of Order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+@enduml

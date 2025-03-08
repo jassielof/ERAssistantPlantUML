@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
 <meta name="description" content="This document is a guide to create Entity-Relationship Diagrams with PlantUML.">
-<meta name="author" content="Jassiel Ovando F">
+<meta name="author" content="Jassiel Ovando F.">
 <title>Entity-Relationship Diagrams with PlantUML: A Guide</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Entity-Relationship Diagrams with PlantUML: A Guide</h1>
 <div class="details">
-<span id="author" class="author">Jassiel Ovando F</span><br>
+<span id="author" class="author">Jassiel Ovando F.</span><br>
 <span id="email" class="email"><a href="mailto:jassielof@github.com">jassielof@github.com</a></span><br>
 </div>
 <div id="toc" class="toc">
@@ -541,6 +541,32 @@ And if the <code>skinparam groupInheritance 2</code> parameter is used, the thic
 </div>
 <div class="title">Figure 1. Example of entities</div>
 </div>
+<div class="listingblock">
+<div class="title">Code of the entities</div>
+<div class="content">
+<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+left to right direction
+skinparam groupInheritance 2
+
+rectangle "Supertype family" as superfamily {
+  entity "Entity 1 (Supertype and Regular)" as entity1 &lt;&lt;DC&gt;&gt;
+  entity "Entity 5 (Subtype)" as entity5
+  entity "Entity 6 (Subtype)" as entity6
+  entity "Entity 2 (Supertype and Weak)" as entity2 #line.dashed
+  note bottom: Note for the entity 2.
+}
+note right of superfamily: Note for the supertype family.
+' note &lt;direction of entity&gt;: &lt;text&gt; '
+
+entity "Entity 3 (Not Supertype and Regular )" as entity3
+entity "Entity 4 (Not Supertype and Weak)" as entity4 #line.dashed
+
+entity1 &lt;|-- entity5
+entity1 &lt;|-- entity6
+
+@enduml</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_attributes">Attributes</h3>
@@ -570,6 +596,41 @@ Otherwise it will have an asterisk <code>*</code> before the attribute name.</p>
 <img src="https://kroki.io/plantuml/svg/eNp9kcFqwzAMhu9-CtFLwdAXCPTQN-hh9-LFSiKWSsXWDqXs3Sc7SZN2MDD2b_uT9Mvew4idggok6geFSAlbJWHnkJX0Drszpiy8g5DhViU8HACxAkUTx6NNHrIm4h44XNH2MSjCJyUditoCeA00uh_HYsRUU7o5cdPM4R8DZbChA9aMBSl6wsxZhBK_ejzFmDDnajJM-j-XtiDq9qS1NK_Em-9WvlnTC3MTo8ZLK7GQh0O9877UnIxeKHq_9Frf2fqY7TXNk3lruJOE1DN84b38y9q3lViiN0_w5-4XznWYtQ==" alt="Example of attributes">
 </div>
 <div class="title">Figure 2. Example of attributes</div>
+</div>
+<div class="listingblock">
+<div class="title">Code of the attributes</div>
+<div class="content">
+<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+' left to right direction
+
+entity "Person" as person {
+  int id
+  ==
+  * string name
+  date birthdate
+  * string email
+}
+note right of person::name
+  This is the name of the person
+end note
+
+entity "Address" as address {
+  int id
+  ==
+  * string street
+  * string city
+  * string state
+  * string country
+  * string postal_code
+  --
+  * **int person_id**
+}
+note left of address::person_id
+  This is the foreign key to the person -- address
+end note
+
+person -- address</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -605,6 +666,25 @@ Otherwise it will have an asterisk <code>*</code> before the attribute name.</p>
 </div>
 <div class="title">Figure 4. Example of relationships with attributes</div>
 </div>
+<div class="listingblock">
+<div class="title">Code of the relationships cardinality</div>
+<div class="content">
+<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+
+left to right direction
+
+Customer }|..o{ Order : places
+Student }o..o{ Course : enrolls in
+Employee ||--|| "Employee Detail" : has details
+Department |o--o{ Employee : manages</code></pre>
+</div>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNqNUc1OwzAMvucpfJuEtD1ANe2CQEIcQLzAFBJvsZQmxXVAaOPdSdJ2KxVC5JDE_vzz-bPyeBCQCExHJ2CJ0QjFoNQK7oKQEPYKy-cTblMvsUWGk4J8bsCMjj3ZBihIdQfdYgPvmo3TrL7UlP3M0SYjl-RusP_OXcFDEOQWLWlBGEsxdox9McIRxGF2eF1Y9446-CBxoEWYXpNc2T-xnVGPxfrRezkMbLf3j7tdxRZc59B6XZ-hns0kGyh3db4lXXtfm0gU7fcdkylxaKjVfpjzZTZCry5Sn8-bTTyN5BvovDZ5pEnLBUrB-GQzrkLMatXVxsMA5_a_SVk2P6mZQ_4hpoVSXH0DEkq-DA==" alt="Example of relationships with attributes">
+</div>
+<div class="title">Figure 5. Example of relationships with attributes</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_diagram_notes">Diagram Notes</h3>
@@ -615,7 +695,27 @@ Otherwise it will have an asterisk <code>*</code> before the attribute name.</p>
 <div class="content">
 <img src="https://kroki.io/plantuml/svg/eNpNjsEKg0AMRO9-xeC5CvUoIvRSKBS99Ohlq9EqkhQ3SIV-fHe1ghBIdpLZefVorEX5HKhWZBk6YprMiDwPdvEbRREu02SWe281CFiUoPKGtLsxxY0xmNmcQDNNC2r_bcX0UeLGQl-9hTDFf3f48IIrg3YUoz138IsQxqI4H4_W0fVamF0UNRWrwPoYhylrvo03Y7Izx7F_FIkfDuQrFa4iW8BIraYoGU5WNNT2TM2GHvwATF1dDg==" alt="Example of diagram notes">
 </div>
-<div class="title">Figure 5. Example of diagram notes</div>
+<div class="title">Figure 6. Example of diagram notes</div>
+</div>
+<div class="listingblock">
+<div class="title">Code of the diagram notes</div>
+<div class="content">
+<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+class Object &lt;&lt; general &gt;&gt;
+Object &lt;|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+
+@enduml</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -633,14 +733,111 @@ Otherwise it will have an asterisk <code>*</code> before the attribute name.</p>
 <div class="content">
 <img src="https://kroki.io/plantuml/svg/eNqFVU1rGzEQve-vGNJDoZAcelwSQ6gTCIU2pIUejbyaeJVoJVXStpg4_72jz911TAPGSKPR08x7M7ONxEcPXoMVu94DFxY7L7Rq3LNQhlk2wM7q0dypHq3wTHUIn5vmI_wYDVq_NwhMcdpt4_pGeeEFuibAMLWTCGf3aJ1WcMsGIfdnwByYaEkGeGkAMFzbF9eZD1xerler6APwKRs3grcglI_Gq6t8ptiALfxhtuuZjbatsL7nzJM5_Gc_HJiQc8fXWQBfRuf1gDaG0OVNfb4YTgUg9Z5Jv98YTQeuHM-xbwZDTogRG_OmYhfDKeyeVNm8SYQj6eMHgi93iK3br6tVfPe1aQqFh_PzGvrCWN5sGqU95hLQjwt9CGwptctSY5Ea4K_wPZWOewq5g7E6-jdI3gE4lMsvZM_x-gPuRsnsVCmFnnVNJxI0ZRcpOpVukwk61p5SrwVl9RNVYqqotIYPUii84Mz1yDN2PnoP-P-s07OzoA9EsH6pj7YwMMV2lO8x18mBsCNFKfAW7qs53eOw3cNE0YLbB5Qs9KzrhUlaXHtvxXb0M3oJkI8TE2E9JR927ydvrOhCCWInBibnNH-3PPeMDqsMHNcz2OP2mcr1KITpIEaScBb1_3tkmagE7bVncvM2wNrCh8PFBcmRwmvBSNYROYWIo1OhOjnyqlUckSRVPKbH7pRHOyAXFEvp7jBB0Vh0mOLpSeI3srC5LJN-15yL4MjkQkpyKkMiFNPhMI0QqgRPU-yMYu1jr4SdW5SfjuVXEdq8dOHBtWC7MNm_6RBKzNFrM3U-ef_shQP6hURc7f-U7FEFV45bKOOTGIyfCwePVg-QxvqSzFlkNauTt_4BB1M4AA==" alt="Example of an ERD with all the elements">
 </div>
-<div class="title">Figure 6. Example of an ERD with all the elements</div>
+<div class="title">Figure 7. Example of an ERD with all the elements</div>
+</div>
+<div class="listingblock">
+<div class="title">Code of the ERD</div>
+<div class="content">
+<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+
+left to right direction
+skinparam groupInheritance 2
+
+' Supertype and Subtype Entities
+rectangle "Person Family" as personFamily {
+  entity "Person" as person &lt;&lt;D&gt;&gt; {
+    * person_id: int
+    ==
+    * name: varchar
+    birthdate: date
+    * email: varchar
+  }
+  entity "Customer" as customer {
+    * customer_id: int
+    ==
+    loyalty_points: int
+  }
+  entity "Employee" as employee {
+    * employee_id: int
+    ==
+    hire_date: date
+    * department_id: int &lt;&lt;FK&gt;&gt;
+  }
+}
+
+person &lt;|-- customer
+person &lt;|-- employee
+
+note right of personFamily
+  Supertype and subtype entities
+  with disjoint property
+end note
+
+' Weak and Regular Entities
+entity "Department" as department {
+  * department_id: int
+  ==
+  * name: varchar
+}
+
+entity "Project" as project #line.dashed {
+  * project_id: int
+  ==
+  * name: varchar
+  * department_id: int &lt;&lt;FK&gt;&gt;
+}
+
+department ||--o{ project : manages
+
+note right of project
+  Weak entity: Project
+  managed by Department
+end note
+
+' Relationship with Attributes
+entity "Product" as product {
+  * product_id: int
+  ==
+  * name: varchar
+  price: decimal
+}
+
+entity "Order" as order {
+  * order_id: int
+  customer_id: int &lt;&lt;FK&gt;&gt;
+  product_id: int &lt;&lt;FK&gt;&gt;
+  ==
+  order_date: date
+  quantity: int
+  total_price: decimal
+}
+
+customer ||..o{ order : places
+product ||..o{ order : includes
+
+note left of order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+' Additional Relationships
+employee ||--|| "Employee Detail" : has details
+department |o--o{ employee : employs
+
+' Diagram Notes
+note top of person : This is the supertype entity
+note right of customer : Customer inherits from Person
+note left of employee : Employee inherits from Person
+
+@enduml</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-25 10:59:14 -0400
+Last updated 2025-03-07 21:07:06 -0400
 </div>
 </div>
 </body>

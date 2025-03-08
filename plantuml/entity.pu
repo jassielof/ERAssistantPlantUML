@@ -1,0 +1,21 @@
+@startuml ERD
+left to right direction
+skinparam groupInheritance 2
+
+rectangle "Supertype family" as superfamily {
+  entity "Entity 1 (Supertype and Regular)" as entity1 <<DC>>
+  entity "Entity 5 (Subtype)" as entity5
+  entity "Entity 6 (Subtype)" as entity6
+  entity "Entity 2 (Supertype and Weak)" as entity2 #line.dashed
+  note bottom: Note for the entity 2.
+}
+note right of superfamily: Note for the supertype family.
+' note <direction of entity>: <text> '
+
+entity "Entity 3 (Not Supertype and Regular )" as entity3
+entity "Entity 4 (Not Supertype and Weak)" as entity4 #line.dashed
+
+entity1 <|-- entity5
+entity1 <|-- entity6
+
+@enduml

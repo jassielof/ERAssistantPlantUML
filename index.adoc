@@ -1,6 +1,7 @@
 = Entity-Relationship Diagrams with PlantUML: A Guide
-Jassiel Ovando_F <jassielof@github.com>
+Jassiel Ovando_F. <jassielof@github.com>
 :description: This document is a guide to create Entity-Relationship Diagrams with PlantUML.
+:source-highlighter: highlight.js
 :toc: auto
 
 [abstract]
@@ -35,27 +36,14 @@ https://plantuml.com/class-diagram#59c91a18bcc97bb0[Link to class diagram notes]
 .Example of entities
 [plantuml]
 ----
-@startuml ERD
-left to right direction
-skinparam groupInheritance 2
+include::./plantuml/entity.pu[]
+----
 
-rectangle "Supertype family" as superfamily {
-  entity "Entity 1 (Supertype and Regular)" as entity1 <<DC>>
-  entity "Entity 5 (Subtype)" as entity5
-  entity "Entity 6 (Subtype)" as entity6
-  entity "Entity 2 (Supertype and Weak)" as entity2 #line.dashed
-  note bottom: Note for the entity 2.
-}
-note right of superfamily: Note for the supertype family.
-' note <direction of entity>: <text> '
 
-entity "Entity 3 (Not Supertype and Regular )" as entity3
-entity "Entity 4 (Not Supertype and Weak)" as entity4 #line.dashed
-
-entity1 <|-- entity5
-entity1 <|-- entity6
-
-@enduml
+.Code of the entities
+[source,plantuml]
+----
+include::./plantuml/entity.pu[]
 ----
 
 === Attributes
@@ -76,36 +64,13 @@ https://plantuml.com/class-diagram#c909b0b5f0434a64[Link to class diagram filed 
 .Example of attributes
 [plantuml]
 ----
-@startuml ERD
-' left to right direction
+include::./plantuml/attribute.pu[]
+----
 
-entity "Person" as person {
-  int id
-  ==
-  * string name
-  date birthdate
-  * string email
-}
-note right of person::name
-  This is the name of the person
-end note
-
-entity "Address" as address {
-  int id
-  ==
-  * string street
-  * string city
-  * string state
-  * string country
-  * string postal_code
-  --
-  * **int person_id**
-}
-note left of address::person_id
-  This is the foreign key to the person -- address
-end note
-
-person -- address
+.Code of the attributes
+[source,plantuml]
+----
+include::./plantuml/attribute.pu[]
 ----
 
 === Relationships & Cardinality
@@ -124,55 +89,13 @@ Use an intermediate entity to represent the relationship with attributes.
 .Example of relationships cardinality
 [plantuml]
 ----
-@startuml ERD
-
-left to right direction
-
-Customer }|..o{ Order : places
-Student }o..o{ Course : enrolls in
-Employee ||--|| "Employee Detail" : has details
-Department |o--o{ Employee : manages
+include::./plantuml/relationship.pu[]
 ----
 
-.Example of relationships with attributes
-[plantuml]
+.Code of the relationships cardinality
+[source,plantuml]
 ----
-@startuml ERD
-
-left to right direction
-
-' Entities
-entity Customer {
-    * customer_id: int
-    name: varchar
-}
-
-entity Product {
-    * product_id: int
-    name: varchar
-}
-
-' Intermediate entity representing the relationship with attributes
-entity Order {
-    * order_id: int
-    customer_id: int <<FK>>
-    product_id: int <<FK>>
-    --
-    order_date: date
-    quantity: int
-    total_price: decimal
-}
-
-' Relationships
-Customer ||..o{ Order : places
-Product ||..o{ Order : includes
-
-note left of Order
-  Intermediate entity to represent
-  the relationship with attributes
-end note
-
-@enduml
+include::./plantuml/relationship.pu[]
 ----
 
 === Diagram Notes
@@ -182,21 +105,13 @@ For diagram notes, simply use floating notes as given https://plantuml.com/class
 .Example of diagram notes
 [plantuml]
 ----
-@startuml
-class Object << general >>
-Object <|--- ArrayList
+include::./plantuml/note.pu[]
+----
 
-note top of Object : In java, every class\nextends this one.
-
-note "This is a floating note" as N1
-note "This note is connected\nto several objects." as N2
-Object .. N2
-N2 .. ArrayList
-
-class Foo
-note left: On last defined class
-
-@enduml
+.Code of the diagram notes
+[source,plantuml]
+----
+include::./plantuml/note.pu[]
 ----
 
 === Design Justification
@@ -208,96 +123,11 @@ For design justifications, I really couldn't find a workaround but just to keep 
 .Example of an ERD with all the elements
 [plantuml]
 ----
-@startuml ERD
+include::./plantuml/example.pu[]
+----
 
-left to right direction
-skinparam groupInheritance 2
-
-' Supertype and Subtype Entities
-rectangle "Person Family" as personFamily {
-  entity "Person" as person <<D>> {
-    * person_id: int
-    ==
-    * name: varchar
-    birthdate: date
-    * email: varchar
-  }
-  entity "Customer" as customer {
-    * customer_id: int
-    ==
-    loyalty_points: int
-  }
-  entity "Employee" as employee {
-    * employee_id: int
-    ==
-    hire_date: date
-    * department_id: int <<FK>>
-  }
-}
-
-person <|-- customer
-person <|-- employee
-
-note right of personFamily
-  Supertype and subtype entities
-  with disjoint property
-end note
-
-' Weak and Regular Entities
-entity "Department" as department {
-  * department_id: int
-  ==
-  * name: varchar
-}
-
-entity "Project" as project #line.dashed {
-  * project_id: int
-  ==
-  * name: varchar
-  * department_id: int <<FK>>
-}
-
-department ||--o{ project : manages
-
-note right of project
-  Weak entity: Project
-  managed by Department
-end note
-
-' Relationship with Attributes
-entity "Product" as product {
-  * product_id: int
-  ==
-  * name: varchar
-  price: decimal
-}
-
-entity "Order" as order {
-  * order_id: int
-  customer_id: int <<FK>>
-  product_id: int <<FK>>
-  ==
-  order_date: date
-  quantity: int
-  total_price: decimal
-}
-
-customer ||..o{ order : places
-product ||..o{ order : includes
-
-note left of order
-  Intermediate entity to represent
-  the relationship with attributes
-end note
-
-' Additional Relationships
-employee ||--|| "Employee Detail" : has details
-department |o--o{ employee : employs
-
-' Diagram Notes
-note top of person : This is the supertype entity
-note right of customer : Customer inherits from Person
-note left of employee : Employee inherits from Person
-
-@enduml
+.Code of the ERD
+[source,plantuml]
+----
+include::./plantuml/example.pu[]
 ----

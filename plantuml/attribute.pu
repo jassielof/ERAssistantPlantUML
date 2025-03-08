@@ -1,0 +1,30 @@
+@startuml ERD
+' left to right direction
+
+entity "Person" as person {
+  int id
+  ==
+  * string name
+  date birthdate
+  * string email
+}
+note right of person::name
+  This is the name of the person
+end note
+
+entity "Address" as address {
+  int id
+  ==
+  * string street
+  * string city
+  * string state
+  * string country
+  * string postal_code
+  --
+  * **int person_id**
+}
+note left of address::person_id
+  This is the foreign key to the person -- address
+end note
+
+person -- address
