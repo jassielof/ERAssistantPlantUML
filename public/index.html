@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor.js 4.0.11">
 <meta name="description" content="This document is a guide to create Entity-Relationship Diagrams with PlantUML.">
 <meta name="author" content="Jassiel Ovando F.">
 <title>Entity-Relationship Diagrams with PlantUML: A Guide</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CNoto+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Uncomment the following line when using as a custom stylesheet */
@@ -96,10 +96,10 @@ dl dd{margin-bottom:1.25em}
 blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
 blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
 @media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
-h1{font-size:2.75em}
-h2{font-size:2.3125em}
-h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
-h4{font-size:1.4375em}}
+  h1{font-size:2.75em}
+  h2{font-size:2.3125em}
+  h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+  h4{font-size:1.4375em}}
 table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
 table thead,table tfoot{background:#f7f8f7}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
@@ -118,7 +118,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -163,21 +162,21 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toc a:active{text-decoration:underline}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
-body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
-#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
-#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
-#toc.toc2>ul{font-size:.9em;margin-bottom:0}
-#toc.toc2 ul ul{margin-left:0;padding-left:1em}
-#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
-body.toc2.toc-right{padding-left:0;padding-right:15em}
-body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+  body.toc2{padding-left:15em;padding-right:0}
+  body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+  #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+  #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+  #toc.toc2>ul{font-size:.9em;margin-bottom:0}
+  #toc.toc2 ul ul{margin-left:0;padding-left:1em}
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  body.toc2.toc-right{padding-left:0;padding-right:15em}
+  body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
 @media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
-#toc.toc2{width:20em}
-#toc.toc2 #toctitle{font-size:1.375em}
-#toc.toc2>ul{font-size:.95em}
-#toc.toc2 ul ul{padding-left:1.25em}
-body.toc2.toc-right{padding-left:0;padding-right:20em}}
+  #toc.toc2{width:20em}
+  #toc.toc2 #toctitle{font-size:1.375em}
+  #toc.toc2>ul{font-size:.95em}
+  #toc.toc2 ul ul{padding-left:1.25em}
+  body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
 #content #toc>:first-child{margin-top:0}
 #content #toc>:last-child{margin-bottom:0}
@@ -186,7 +185,7 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content{margin-bottom:.625em}
 .sect1{padding-bottom:.625em}
 @media screen and (min-width:768px){#content{margin-bottom:1.25em}
-.sect1{padding-bottom:1.25em}}
+  .sect1{padding-bottom:1.25em}}
 .sect1:last-child{padding-bottom:0}
 .sect1+.sect1{border-top:1px solid #e7e7e9}
 #content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
@@ -221,6 +220,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -400,41 +400,42 @@ p{margin-bottom:1.25rem}
 .print-only{display:none!important}
 @page{margin:1.25cm .75cm}
 @media print{*{box-shadow:none!important;text-shadow:none!important}
-html{font-size:80%}
-a{color:inherit!important;text-decoration:underline!important}
-a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
-a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
-abbr[title]{border-bottom:1px dotted}
-abbr[title]::after{content:" (" attr(title) ")"}
-pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
-thead{display:table-header-group}
-svg{max-width:100%}
-p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
-h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
-#header,#content,#footnotes,#footer{max-width:none}
-#toc,.sidebarblock,.exampleblock>.content{background:none!important}
-#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
-body.book #header{text-align:center}
-body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
-body.book #header .details{border:0!important;display:block;padding:0!important}
-body.book #header .details span:first-child{margin-left:0!important}
-body.book #header .details br{display:block}
-body.book #header .details br+span::before{content:none!important}
-body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
-body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
-.listingblock code[data-lang]::before{display:block}
-#footer{padding:0 .9375em}
-.hide-on-print{display:none!important}
-.print-only{display:block!important}
-.hide-for-print{display:none!important}
-.show-for-print{display:inherit!important}}
+  html{font-size:80%}
+  a{color:inherit!important;text-decoration:underline!important}
+  a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+  a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+  abbr[title]{border-bottom:1px dotted}
+  abbr[title]::after{content:" (" attr(title) ")"}
+  pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+  thead{display:table-header-group}
+  svg{max-width:100%}
+  p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+  h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+  #header,#content,#footnotes,#footer{max-width:none}
+  #toc,.sidebarblock,.exampleblock>.content{background:none!important}
+  #toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+  body.book #header{text-align:center}
+  body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+  body.book #header .details{border:0!important;display:block;padding:0!important}
+  body.book #header .details span:first-child{margin-left:0!important}
+  body.book #header .details br{display:block}
+  body.book #header .details br+span::before{content:none!important}
+  body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+  body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+  .listingblock code[data-lang]::before{display:block}
+  #footer{padding:0 .9375em}
+  .hide-on-print{display:none!important}
+  .print-only{display:block!important}
+  .hide-for-print{display:none!important}
+  .show-for-print{display:inherit!important}}
 @media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
-.sect1{padding:0!important}
-.sect1+.sect1{border:0}
-#footer{background:none}
-#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+  .sect1{padding:0!important}
+  .sect1+.sect1{border:0}
+  #footer{background:none}
+  #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
@@ -535,16 +536,36 @@ And if the <code>skinparam groupInheritance 2</code> parameter is used, the thic
 </dd>
 </dl>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of entities</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNptkTFvgzAQhXf_iic6JB2CFJIwRIil7dClQzt0dsIBVsBG5pCK2v73hlil1DBZd3rf8927inIGG1hVlIxMWTqzMlq0F6UbaWWNwpquedYlWcVSnwmREINK6qIiBG9dQ5b7hpDLWlV9ANmiHZquxqcASLPiHsGTe7dY_2FSZ3iloqukvb_BTrxFkjw-pOmcPgz0aWCn-sNcGC8K47kw8ud5J3mZMhHuKqUpzGRbUnY10IYJJ8Ns6iNehiI3FlzSr3UUim9xU7lkTT4NxWNaL8NQrNwPyXiQwcBZp0ckTB-cYiWEt8gO66sxFsPFdKGdT-6XSD-G_f8YxHipr81mPMNCMxY_bpPRYw==" alt="Example of entities">
+<pre>@startuml ERD
+left to right direction
+skinparam groupInheritance 2
+
+rectangle "Supertype family" as superfamily {
+  entity "Entity 1 (Supertype and Regular)" as entity1 &lt;&lt;DC&gt;&gt;
+  entity "Entity 5 (Subtype)" as entity5
+  entity "Entity 6 (Subtype)" as entity6
+  entity "Entity 2 (Supertype and Weak)" as entity2 #line.dashed
+  note bottom: Note for the entity 2.
+}
+note right of superfamily: Note for the supertype family.
+' note &lt;direction of entity&gt;: &lt;text&gt; '
+
+entity "Entity 3 (Not Supertype and Regular )" as entity3
+entity "Entity 4 (Not Supertype and Weak)" as entity4 #line.dashed
+
+entity1 &lt;|-- entity5
+entity1 &lt;|-- entity6
+
+@enduml</pre>
 </div>
-<div class="title">Figure 1. Example of entities</div>
 </div>
 <div class="listingblock">
 <div class="title">Code of the entities</div>
 <div class="content">
-<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+<pre class="highlightjs highlight"><code class="language-plantuml hljs" data-lang="plantuml">@startuml ERD
 left to right direction
 skinparam groupInheritance 2
 
@@ -591,16 +612,45 @@ Otherwise it will have an asterisk <code>*</code> before the attribute name.</p>
 </dd>
 </dl>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of attributes</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNp9kcFqwzAMhu9-CtFLwdAXCPTQN-hh9-LFSiKWSsXWDqXs3Sc7SZN2MDD2b_uT9Mvew4idggok6geFSAlbJWHnkJX0Drszpiy8g5DhViU8HACxAkUTx6NNHrIm4h44XNH2MSjCJyUditoCeA00uh_HYsRUU7o5cdPM4R8DZbChA9aMBSl6wsxZhBK_ejzFmDDnajJM-j-XtiDq9qS1NK_Em-9WvlnTC3MTo8ZLK7GQh0O9877UnIxeKHq_9Frf2fqY7TXNk3lruJOE1DN84b38y9q3lViiN0_w5-4XznWYtQ==" alt="Example of attributes">
+<pre>@startuml ERD
+' left to right direction
+
+entity "Person" as person {
+  int id
+  ==
+  * string name
+  date birthdate
+  * string email
+}
+note right of person::name
+  This is the name of the person
+end note
+
+entity "Address" as address {
+  int id
+  ==
+  * string street
+  * string city
+  * string state
+  * string country
+  * string postal_code
+  --
+  * **int person_id**
+}
+note left of address::person_id
+  This is the foreign key to the person -- address
+end note
+
+person -- address</pre>
 </div>
-<div class="title">Figure 2. Example of attributes</div>
 </div>
 <div class="listingblock">
 <div class="title">Code of the attributes</div>
 <div class="content">
-<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+<pre class="highlightjs highlight"><code class="language-plantuml hljs" data-lang="plantuml">@startuml ERD
 ' left to right direction
 
 entity "Person" as person {
@@ -654,22 +704,64 @@ person -- address</code></pre>
 </dd>
 </dl>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of relationships cardinality</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNo9jD0OgzAMRvecwmIPB2CFzh16goi4ECmJI9sMVc3dmzIwvu_nuYxvBSXgtO0KMTGumqg6Nx-iVJDhtHGkLzw5dpig5bCiuJceEavCSVc708GCvcbKlLNAqu5RWqYPIph5bwbDHSyoIeWhz_cgEC8St2ALrOVvNfK-W-_DBCXUsKH8AD6zPZk=" alt="Example of relationships cardinality">
+<pre>@startuml ERD
+
+left to right direction
+
+Customer }|..o{ Order : places
+Student }o..o{ Course : enrolls in
+Employee ||--|| "Employee Detail" : has details
+Department |o--o{ Employee : manages</pre>
 </div>
-<div class="title">Figure 3. Example of relationships cardinality</div>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of relationships with attributes</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNqNUc1OwzAMvucpfJuEtD1ANe2CQEIcQLzAFBJvsZQmxXVAaOPdSdJ2KxVC5JDE_vzz-bPyeBCQCExHJ2CJ0QjFoNQK7oKQEPYKy-cTblMvsUWGk4J8bsCMjj3ZBihIdQfdYgPvmo3TrL7UlP3M0SYjl-RusP_OXcFDEOQWLWlBGEsxdox9McIRxGF2eF1Y9446-CBxoEWYXpNc2T-xnVGPxfrRezkMbLf3j7tdxRZc59B6XZ-hns0kGyh3db4lXXtfm0gU7fcdkylxaKjVfpjzZTZCry5Sn8-bTTyN5BvovDZ5pEnLBUrB-GQzrkLMatXVxsMA5_a_SVk2P6mZQ_4hpoVSXH0DEkq-DA==" alt="Example of relationships with attributes">
+<pre>@startuml ERD
+
+left to right direction
+
+' Entities
+entity Customer {
+    * customer_id: int
+    name: varchar
+}
+
+entity Product {
+    * product_id: int
+    name: varchar
+}
+
+' Intermediate entity representing the relationship with attributes
+entity Order {
+    * order_id: int
+    customer_id: int &lt;&lt;FK&gt;&gt;
+    product_id: int &lt;&lt;FK&gt;&gt;
+    --
+    order_date: date
+    quantity: int
+    total_price: decimal
+}
+
+' Relationships
+Customer ||..o{ Order : places
+Product ||..o{ Order : includes
+
+note left of Order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+@enduml</pre>
 </div>
-<div class="title">Figure 4. Example of relationships with attributes</div>
 </div>
 <div class="listingblock">
 <div class="title">Code of the relationships cardinality</div>
 <div class="content">
-<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+<pre class="highlightjs highlight"><code class="language-plantuml hljs" data-lang="plantuml">@startuml ERD
 
 left to right direction
 
@@ -679,11 +771,46 @@ Employee ||--|| "Employee Detail" : has details
 Department |o--o{ Employee : manages</code></pre>
 </div>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of relationships with attributes</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNqNUc1OwzAMvucpfJuEtD1ANe2CQEIcQLzAFBJvsZQmxXVAaOPdSdJ2KxVC5JDE_vzz-bPyeBCQCExHJ2CJ0QjFoNQK7oKQEPYKy-cTblMvsUWGk4J8bsCMjj3ZBihIdQfdYgPvmo3TrL7UlP3M0SYjl-RusP_OXcFDEOQWLWlBGEsxdox9McIRxGF2eF1Y9446-CBxoEWYXpNc2T-xnVGPxfrRezkMbLf3j7tdxRZc59B6XZ-hns0kGyh3db4lXXtfm0gU7fcdkylxaKjVfpjzZTZCry5Sn8-bTTyN5BvovDZ5pEnLBUrB-GQzrkLMatXVxsMA5_a_SVk2P6mZQ_4hpoVSXH0DEkq-DA==" alt="Example of relationships with attributes">
+<pre>@startuml ERD
+
+left to right direction
+
+' Entities
+entity Customer {
+    * customer_id: int
+    name: varchar
+}
+
+entity Product {
+    * product_id: int
+    name: varchar
+}
+
+' Intermediate entity representing the relationship with attributes
+entity Order {
+    * order_id: int
+    customer_id: int &lt;&lt;FK&gt;&gt;
+    product_id: int &lt;&lt;FK&gt;&gt;
+    --
+    order_date: date
+    quantity: int
+    total_price: decimal
+}
+
+' Relationships
+Customer ||..o{ Order : places
+Product ||..o{ Order : includes
+
+note left of Order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+@enduml</pre>
 </div>
-<div class="title">Figure 5. Example of relationships with attributes</div>
 </div>
 </div>
 <div class="sect2">
@@ -691,16 +818,30 @@ Department |o--o{ Employee : manages</code></pre>
 <div class="paragraph">
 <p>For diagram notes, simply use floating notes as given <a href="https://plantuml.com/class-diagram#59c91a18bcc97bb0">here</a>.</p>
 </div>
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of diagram notes</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNpNjsEKg0AMRO9-xeC5CvUoIvRSKBS99Ohlq9EqkhQ3SIV-fHe1ghBIdpLZefVorEX5HKhWZBk6YprMiDwPdvEbRREu02SWe281CFiUoPKGtLsxxY0xmNmcQDNNC2r_bcX0UeLGQl-9hTDFf3f48IIrg3YUoz138IsQxqI4H4_W0fVamF0UNRWrwPoYhylrvo03Y7Izx7F_FIkfDuQrFa4iW8BIraYoGU5WNNT2TM2GHvwATF1dDg==" alt="Example of diagram notes">
+<pre>@startuml ERD
+class Object &lt;&lt; general &gt;&gt;
+Object &lt;|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+
+@enduml</pre>
 </div>
-<div class="title">Figure 6. Example of diagram notes</div>
 </div>
 <div class="listingblock">
 <div class="title">Code of the diagram notes</div>
 <div class="content">
-<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+<pre class="highlightjs highlight"><code class="language-plantuml hljs" data-lang="plantuml">@startuml ERD
 class Object &lt;&lt; general &gt;&gt;
 Object &lt;|--- ArrayList
 
@@ -729,16 +870,107 @@ note left: On last defined class
 <div class="sect1">
 <h2 id="_example">Example</h2>
 <div class="sectionbody">
-<div class="imageblock kroki">
+<div class="listingblock">
+<div class="title">Example of an ERD with all the elements</div>
 <div class="content">
-<img src="https://kroki.io/plantuml/svg/eNqFVU1rGzEQve-vGNJDoZAcelwSQ6gTCIU2pIUejbyaeJVoJVXStpg4_72jz911TAPGSKPR08x7M7ONxEcPXoMVu94DFxY7L7Rq3LNQhlk2wM7q0dypHq3wTHUIn5vmI_wYDVq_NwhMcdpt4_pGeeEFuibAMLWTCGf3aJ1WcMsGIfdnwByYaEkGeGkAMFzbF9eZD1xerler6APwKRs3grcglI_Gq6t8ptiALfxhtuuZjbatsL7nzJM5_Gc_HJiQc8fXWQBfRuf1gDaG0OVNfb4YTgUg9Z5Jv98YTQeuHM-xbwZDTogRG_OmYhfDKeyeVNm8SYQj6eMHgi93iK3br6tVfPe1aQqFh_PzGvrCWN5sGqU95hLQjwt9CGwptctSY5Ea4K_wPZWOewq5g7E6-jdI3gE4lMsvZM_x-gPuRsnsVCmFnnVNJxI0ZRcpOpVukwk61p5SrwVl9RNVYqqotIYPUii84Mz1yDN2PnoP-P-s07OzoA9EsH6pj7YwMMV2lO8x18mBsCNFKfAW7qs53eOw3cNE0YLbB5Qs9KzrhUlaXHtvxXb0M3oJkI8TE2E9JR927ydvrOhCCWInBibnNH-3PPeMDqsMHNcz2OP2mcr1KITpIEaScBb1_3tkmagE7bVncvM2wNrCh8PFBcmRwmvBSNYROYWIo1OhOjnyqlUckSRVPKbH7pRHOyAXFEvp7jBB0Vh0mOLpSeI3srC5LJN-15yL4MjkQkpyKkMiFNPhMI0QqgRPU-yMYu1jr4SdW5SfjuVXEdq8dOHBtWC7MNm_6RBKzNFrM3U-ef_shQP6hURc7f-U7FEFV45bKOOTGIyfCwePVg-QxvqSzFlkNauTt_4BB1M4AA==" alt="Example of an ERD with all the elements">
+<pre>@startuml ERD
+
+left to right direction
+skinparam groupInheritance 2
+
+' Supertype and Subtype Entities
+rectangle "Person Family" as personFamily {
+  entity "Person" as person &lt;&lt;D&gt;&gt; {
+    * person_id: int
+    ==
+    * name: varchar
+    birthdate: date
+    * email: varchar
+  }
+  entity "Customer" as customer {
+    * customer_id: int
+    ==
+    loyalty_points: int
+  }
+  entity "Employee" as employee {
+    * employee_id: int
+    ==
+    hire_date: date
+    * department_id: int &lt;&lt;FK&gt;&gt;
+  }
+}
+
+person &lt;|-- customer
+person &lt;|-- employee
+
+note right of personFamily
+  Supertype and subtype entities
+  with disjoint property
+end note
+
+' Weak and Regular Entities
+entity "Department" as department {
+  * department_id: int
+  ==
+  * name: varchar
+}
+
+entity "Project" as project #line.dashed {
+  * project_id: int
+  ==
+  * name: varchar
+  * department_id: int &lt;&lt;FK&gt;&gt;
+}
+
+department ||--o{ project : manages
+
+note right of project
+  Weak entity: Project
+  managed by Department
+end note
+
+' Relationship with Attributes
+entity "Product" as product {
+  * product_id: int
+  ==
+  * name: varchar
+  price: decimal
+}
+
+entity "Order" as order {
+  * order_id: int
+  customer_id: int &lt;&lt;FK&gt;&gt;
+  product_id: int &lt;&lt;FK&gt;&gt;
+  ==
+  order_date: date
+  quantity: int
+  total_price: decimal
+}
+
+customer ||..o{ order : places
+product ||..o{ order : includes
+
+note left of order
+  Intermediate entity to represent
+  the relationship with attributes
+end note
+
+' Additional Relationships
+employee ||--|| "Employee Detail" : has details
+department |o--o{ employee : employs
+
+' Diagram Notes
+note top of person : This is the supertype entity
+note right of customer : Customer inherits from Person
+note left of employee : Employee inherits from Person
+
+@enduml</pre>
 </div>
-<div class="title">Figure 7. Example of an ERD with all the elements</div>
 </div>
 <div class="listingblock">
 <div class="title">Code of the ERD</div>
 <div class="content">
-<pre class="highlight"><code class="language-plantuml" data-lang="plantuml">@startuml ERD
+<pre class="highlightjs highlight"><code class="language-plantuml hljs" data-lang="plantuml">@startuml ERD
 
 left to right direction
 skinparam groupInheritance 2
@@ -837,8 +1069,15 @@ note left of employee : Employee inherits from Person
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-07 21:07:06 -0400
+Last updated 2026-09-16 22:54:26 -0400
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

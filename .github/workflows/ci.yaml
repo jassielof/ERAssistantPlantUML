@@ -17,11 +17,12 @@ jobs:
         run: sudo gem install asciidoctor asciidoctor-diagram
       - name: Compile doocument
         run: |
-          asciidoctor
+          mkdir -p public
+          asciidoctor --require asciidoctor-diagram --destination public docs/notation.adoc --out-file index.html
       - name: Upload page artifacts
         uses: actions/upload-pages-artifact@v5
         with:
-          path: .
+          path: public
   deploy:
     name: Deploy
     needs: build
