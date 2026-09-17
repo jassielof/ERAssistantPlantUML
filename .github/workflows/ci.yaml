@@ -18,7 +18,7 @@ jobs:
       - name: Compile doocument
         run: |
           mkdir -p public
-          asciidoctor --require asciidoctor-diagram --require asciidoctor-diagram-plantuml --destination public docs/notation.adoc --out-file index.html
+          asciidoctor --require asciidoctor-diagram --destination public docs/notation.adoc --out-file index.html
       - name: Upload page artifacts
         uses: actions/upload-pages-artifact@v5
         with:
