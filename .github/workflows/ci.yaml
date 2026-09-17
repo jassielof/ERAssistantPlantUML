@@ -1,0 +1,36 @@
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up AsciiDoc
+        run: sudo gem install asciidoctor asciidoctor-diagram
+      - name: Compile doocument
+        run: |
+          asciidoctor
+      - name: Upload page artifacts
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-slim
+    if: github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deployment
+        id: deployment
+        uses: actions/deploy-pages@v5
